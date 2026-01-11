@@ -12,7 +12,9 @@ const isValidYoutubeURL = (url: string): boolean => {
 export default function InputURLYoutube(){
     const [URL, setURL] = useState();
     
+
     const handlePerubahanURL = (event) => {
+        // kok dipisah? karena kalau satu di handleURL, nilai URL belum sempat diset dan divalidasi, gampangnya di sini aja
         setURL(event.target.value);
     }
 
