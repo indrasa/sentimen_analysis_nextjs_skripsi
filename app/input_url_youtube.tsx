@@ -19,33 +19,39 @@ export default function InputURLYoutube() {
     const handleUrl = async (url: string) => {
         // jika link valid, maka proses scraping dan analisa komentar, buat 2 action, pengumpul komentar dan analisa hugging face
         if (isValid) {
-            // alert(`LINK VALID: ${url}`);
-            // console.log(`valid, lanjut proses link ${url}`);
             //jadi minta ke serverAction > proses dari lib(scrapper), dan harus ditampung, kalau nggak nggak bisa
             const listKomentar = await KomentarAction(url);
-            console.log(listKomentar);
-
+            // console.log(listKomentar);
             // next analisa dengan AnalisaAction, kirim list komentar ke actions
             const analisaKomentar = await AnalisaAction(listKomentar)
-            console.log(`analisa komentar: ${analisaKomentar}`);
+            // console.log(analisaKomentar);
+
+
+            // console.log(`analisa komentar: ${analisaKomentar[0].label}`);
+            //gabung hasil analisa dan komentar jadi satu
+            const gabungKomentarDanAnalisa = listKomentar.map((komentar, index) => ({
+                ...komentar,
+                sentimen: analisaKomentar[index]
+            }));
+            // console.log(gabungKomentarDanAnalisa);
+
+            // buat variabel baru menampung 3 saja, komentar, label sentimen, dan skor sentimen
+            const filteredKomentar = gabungKomentarDanAnalisa.map((item) => ({
+                text: item.text,
+                label: item.sentimen.label,
+                score: item.sentimen.score,
+                // kalau mau nambah photo dan authornya bisa di sini, kayaknya kita pakai ini aja
+            }));
+            console.log(filteredKomentar);
+            
+            //kemudian masukkan ke store untuk di filter per kategori dan dibuatkan chart
         } else if (!isValid) {
             // alert(`LINK TIDAK VALID: ${url}`);
-            // console.log("nggak valid, perbaiki link");
         }
     }
 
     return <>
         <Input onChange={(e) => setUrl(e.target.value)} />
         <Button onClick={() => handleUrl(url)} variant="default">Analisis Komentar</Button>
-        {/* {!isValid && (
-            <p className="text-red-500 text-sm">URL nggak valid</p>
-        )} */}
-
-        {/* {
-            isValid && <p className="text-green-500 text-sm">Valid</p>
-        }
-        {
-            !isValid && <p className="text-red-500 text-sm">Tidak Valid</p>
-        } */}
     </>
 }
