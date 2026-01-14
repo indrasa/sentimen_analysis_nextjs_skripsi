@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { useYoutubeStore } from '@/store/useYoutubeStore'
 import { KomentarAction } from "./actions/komentarAction"
 import { AnalisaAction } from "./actions/analisaAction"
+import { useSentimenStore } from '../store/useSentimenStore';
 
 // const isValidYoutubeURL = (url: string): boolean => {
 //     const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)\/(watch\?v=[-\w]{11}|youtu\.be\/[-\w]{11}|shorts\/[-\w]{11})/;
@@ -15,6 +16,8 @@ export default function InputURLYoutube() {
     const setUrl = useYoutubeStore((s) => s.setUrl)
     const isValid = useYoutubeStore((s) => s.isValid)
     const url = useYoutubeStore((s) => s.url)
+
+    const { sentimenResults, setSentimenResults } = useSentimenStore();
 
     const handleUrl = async (url: string) => {
         // jika link valid, maka proses scraping dan analisa komentar, buat 2 action, pengumpul komentar dan analisa hugging face
@@ -42,7 +45,8 @@ export default function InputURLYoutube() {
                 score: item.sentimen.score,
                 // kalau mau nambah photo dan authornya bisa di sini, kayaknya kita pakai ini aja
             }));
-            console.log(filteredKomentar);
+            // console.log(filteredKomentar);
+            setSentimenResults(filteredKomentar)
             
             //kemudian masukkan ke store untuk di filter per kategori dan dibuatkan chart
         } else if (!isValid) {
