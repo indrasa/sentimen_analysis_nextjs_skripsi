@@ -47,8 +47,9 @@ export default function InputURLYoutube() {
             }));
             // console.log(filteredKomentar);
             setSentimenResults(filteredKomentar)
-            
+            //todo: next lanjut di sini
             //kemudian masukkan ke store untuk di filter per kategori dan dibuatkan chart
+            console.log(filteredKomentar);
         } else if (!isValid) {
             // alert(`LINK TIDAK VALID: ${url}`);
         }

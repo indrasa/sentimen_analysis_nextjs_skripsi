@@ -17,6 +17,9 @@ export default function Home() {
           <div className="my-9">
             <Sentimen/>
           </div>
+          
+          distribusi sentimen dengan pie chart
+          insight cepat
         </div>
       </main>
     </div>
