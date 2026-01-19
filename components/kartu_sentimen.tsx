@@ -13,11 +13,11 @@ type KartuSentimenProps = {
 export default function KartuSentimen({label, jumlah, komentar} : KartuSentimenProps  ) {
     const list_komentar: string []= komentar;
     return <>
-        <Card>
-            <CardHeader className="text-4xl font-bold">
+        <Card className="rounded-xl p-6 shadow-sm border border-gray-100">
+            <CardHeader className="text-3xl font-bold items-center gap-3">
                 { label }
             </CardHeader>
-            <CardContent className="text-6xl font-black text-right">
+            <CardContent className="text-5xl font-black text-right">
                 { jumlah }
             </CardContent>
             <CardAction>
