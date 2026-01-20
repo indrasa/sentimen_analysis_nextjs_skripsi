@@ -1,8 +1,6 @@
 'use client'
 
-import KartuSentimen from "@/components/kartu_sentimen";
-import { Button } from "@/components/ui/button";
-import { Card, CardAction, CardContent, CardHeader } from "@/components/ui/card";
+import KartuSentimen from "@/components/sentimen_component/kartu_sentimen";
 import { useSentimenStore } from "@/store/useSentimenStore";
 import { useEffect } from "react";
 

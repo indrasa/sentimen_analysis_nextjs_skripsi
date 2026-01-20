@@ -3,8 +3,8 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useYoutubeStore } from '@/store/useYoutubeStore'
-import { KomentarAction } from "./actions/komentarAction"
-import { AnalisaAction } from "./actions/analisaAction"
+import { KomentarAction } from "../app/actions/komentarAction"
+import { AnalisaAction } from "../app/actions/analisaAction"
 import { useSentimenStore } from '../store/useSentimenStore';
 
 // const isValidYoutubeURL = (url: string): boolean => {
@@ -17,7 +17,7 @@ export default function InputURLYoutube() {
     const isValid = useYoutubeStore((s) => s.isValid)
     const url = useYoutubeStore((s) => s.url)
 
-    const { sentimenResults, setSentimenResults } = useSentimenStore();
+    const { setSentimenResults } = useSentimenStore();
 
     const handleUrl = async (url: string) => {
         // jika link valid, maka proses scraping dan analisa komentar, buat 2 action, pengumpul komentar dan analisa hugging face
@@ -49,7 +49,7 @@ export default function InputURLYoutube() {
             setSentimenResults(filteredKomentar)
             //todo: next lanjut di sini
             //kemudian masukkan ke store untuk di filter per kategori dan dibuatkan chart
-            console.log(filteredKomentar);
+            // console.log(filteredKomentar);
         } else if (!isValid) {
             // alert(`LINK TIDAK VALID: ${url}`);
         }

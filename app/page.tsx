@@ -1,9 +1,11 @@
-import Sentimen from './sentimen';
-import InputURLYoutube from "./input_url_youtube";
-import ChartSentimen from "@/components/chart_sentimen";
+import Sentimen from '../components/sentimen_component/all_kartu_sentimen';
+import InputURLYoutube from "../components/input_url_youtube";
+import ChartSentimen from "@/components/sentimen_component/chart_sentimen";
+import { Card } from '@/components/ui/card';
+import AllInsightSentimen from '@/components/all_insight_sentimen';
 
 export default function Home() {
-
+  const isSudahDiAnalisa = true;
 
 
 
@@ -16,20 +18,9 @@ export default function Home() {
           <div className="flex space-x-3 mt-7">
             <InputURLYoutube />
           </div>
-          <div className="my-9 grid grid-cols-1 md:grid-cols-5 col-span-1 gap-6">
-            <Sentimen />
-          </div>
-
-          <div className="flex gap-5 justify-center">
-            <div className="flex-auto items-center">
-              <ChartSentimen />
-            </div>
-            <div className="flex-auto">
-              <h1 className="text-3xl font-bold">Insight Cepat</h1>
-
-            </div>
-          </div>
-
+         
+         
+          {isSudahDiAnalisa && <AllInsightSentimen />}
 
         </div>
 
