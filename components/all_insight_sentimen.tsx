@@ -5,17 +5,33 @@ import ChartSentimen from "./sentimen_component/chart_sentimen";
 import { Card } from "./ui/card";
 import { useSentimenStore } from "@/store/useSentimenStore";
 import { useEffect } from "react";
+import { Spinner } from "./ui/spinner";
 
 export default function AllInsightSentimen() {
 
     const { sentimenResults } = useSentimenStore();
+    // var isLoading: boolean = true;
 
     useEffect(() => {
         console.log(`Hasil sentimen: ${sentimenResults}`);
+        // if (!Array.isArray(sentimenResults) || sentimenResults.length === 0) {
+        //     isLoading = false;
+        // }
     }, [sentimenResults]);
 
-    if (!sentimenResults || sentimenResults == null || sentimenResults == '') {
-        return <>nggak ada</>
+    // if (isLoading) {
+    //     return <>
+    //         <div className="flex flex-col self-center justify-center items-center p-6">
+    //             <Spinner />
+    //         </div>
+    //     </>
+    // }
+
+    // if (!sentimenResults || sentimenResults == null || sentimenResults == '') {
+    if (!Array.isArray(sentimenResults) || sentimenResults.length === 0) {
+        return
+        <>
+        </>
     } else if (sentimenResults) {
         return <>
             <h1 className="text-2xl">Hasil Sentimen </h1>
@@ -39,5 +55,5 @@ export default function AllInsightSentimen() {
             </div>
         </>
     }
-    
+
 }

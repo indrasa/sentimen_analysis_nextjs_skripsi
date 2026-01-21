@@ -6,13 +6,11 @@ import { useYoutubeStore } from '@/store/useYoutubeStore'
 import { KomentarAction } from "../app/actions/komentarAction"
 import { AnalisaAction } from "../app/actions/analisaAction"
 import { useSentimenStore } from '../store/useSentimenStore';
-
-// const isValidYoutubeURL = (url: string): boolean => {
-//     const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)\/(watch\?v=[-\w]{11}|youtu\.be\/[-\w]{11}|shorts\/[-\w]{11})/;
-//     return youtubeRegex.test(url);
-// }
+import { useState } from "react"
+import { Spinner } from "./ui/spinner"
 
 export default function InputURLYoutube() {
+    const [ isLoading, setLoading ] = useState(false);
     const setUrl = useYoutubeStore((s) => s.setUrl)
     const isValid = useYoutubeStore((s) => s.isValid)
     const url = useYoutubeStore((s) => s.url)
@@ -22,34 +20,42 @@ export default function InputURLYoutube() {
     const handleUrl = async (url: string) => {
         // jika link valid, maka proses scraping dan analisa komentar, buat 2 action, pengumpul komentar dan analisa hugging face
         if (isValid) {
-            //jadi minta ke serverAction > proses dari lib(scrapper), dan harus ditampung, kalau nggak nggak bisa
-            const listKomentar = await KomentarAction(url);
-            // console.log(listKomentar);
-            // next analisa dengan AnalisaAction, kirim list komentar ke actions
-            const analisaKomentar = await AnalisaAction(listKomentar)
-            // console.log(analisaKomentar);
+            try {
+                setLoading(true);
+                //jadi minta ke serverAction > proses dari lib(scrapper), dan harus ditampung, kalau nggak nggak bisa
+                const listKomentar = await KomentarAction(url);
+                // console.log(listKomentar);
+                // next analisa dengan AnalisaAction, kirim list komentar ke actions
+                const analisaKomentar = await AnalisaAction(listKomentar)
+                // console.log(analisaKomentar);
 
 
-            // console.log(`analisa komentar: ${analisaKomentar[0].label}`);
-            //gabung hasil analisa dan komentar jadi satu
-            const gabungKomentarDanAnalisa = listKomentar.map((komentar, index) => ({
-                ...komentar,
-                sentimen: analisaKomentar[index]
-            }));
-            // console.log(gabungKomentarDanAnalisa);
+                // console.log(`analisa komentar: ${analisaKomentar[0].label}`);
+                //gabung hasil analisa dan komentar jadi satu
+                const gabungKomentarDanAnalisa = listKomentar.map((komentar, index) => ({
+                    ...komentar,
+                    sentimen: analisaKomentar[index]
+                }));
+                // console.log(gabungKomentarDanAnalisa);
 
-            // buat variabel baru menampung 3 saja, komentar, label sentimen, dan skor sentimen
-            const filteredKomentar = gabungKomentarDanAnalisa.map((item) => ({
-                text: item.text,
-                label: item.sentimen.label,
-                score: item.sentimen.score,
-                // kalau mau nambah photo dan authornya bisa di sini, kayaknya kita pakai ini aja
-            }));
-            // console.log(filteredKomentar);
-            setSentimenResults(filteredKomentar)
-            //todo: next lanjut di sini
-            //kemudian masukkan ke store untuk di filter per kategori dan dibuatkan chart
-            // console.log(filteredKomentar);
+                // buat variabel baru menampung 3 saja, komentar, label sentimen, dan skor sentimen
+                const filteredKomentar = gabungKomentarDanAnalisa.map((item) => ({
+                    text: item.text,
+                    label: item.sentimen.label,
+                    score: item.sentimen.score,
+                    // kalau mau nambah photo dan authornya bisa di sini, kayaknya kita pakai ini aja
+                }));
+                // console.log(filteredKomentar);
+                setSentimenResults(filteredKomentar)
+                //todo: next lanjut di sini
+                //kemudian masukkan ke store untuk di filter per kategori dan dibuatkan chart
+                // console.log(filteredKomentar);
+                
+            } catch (e) {
+                // error di sini
+            } finally {
+                setLoading(false);
+            }
         } else if (!isValid) {
             // alert(`LINK TIDAK VALID: ${url}`);
         }
@@ -57,6 +63,6 @@ export default function InputURLYoutube() {
 
     return <>
         <Input onChange={(e) => setUrl(e.target.value)} />
-        <Button onClick={() => handleUrl(url)} variant="default">Analisis Komentar</Button>
+        <Button onClick={() => handleUrl(url)} variant="default">{isLoading ? <Spinner/> : 'Analisis Komentar'}</Button>
     </>
 }
