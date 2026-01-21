@@ -27,7 +27,7 @@ export default function KartuSentimen({ label, jumlah, komentar }: KartuSentimen
                         Lihat
                     </Button>
                 </CardAction>
-                <Progress value={50} className="w-[60%] " />
+                {/* <Progress value={50} className="w-[60%] " /> */}
             </div>
         </Card>
     </>

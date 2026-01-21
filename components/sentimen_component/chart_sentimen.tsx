@@ -1,5 +1,6 @@
 'use client';
 
+import { useSentimenStore } from '@/store/useSentimenStore';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 
@@ -9,11 +10,18 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function ChartSentimen() {
 
+    const { getTotalCountByLabel  } = useSentimenStore();
+    const jumlahVeryPositive = getTotalCountByLabel('Very Positive');
+    const jumlahPositive = getTotalCountByLabel('Positive');
+    const jumlahNeutral = getTotalCountByLabel('Neutral');
+    const jumlahNegative = getTotalCountByLabel('Negative');
+    const jumlahVeryNegative = getTotalCountByLabel('Very Negative');
+
     const data = {
         labels: ['Very Positive', 'Positive', 'Neutral', 'Negative', 'Very Negative'],
         datasets: [{
             label: 'Sentimen Analysis',
-            data: [300, 50, 40, 50, 100], //todo: ganti dengan data asli
+            data: [jumlahVeryPositive, jumlahPositive, jumlahNeutral, jumlahNegative, jumlahVeryNegative], //todo: ganti dengan data asli
             backgroundColor: [
                 'rgb(22, 145, 67)',   // green for positive
                 'rgb(59, 189, 214)',   // green for very positive

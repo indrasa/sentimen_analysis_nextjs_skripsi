@@ -16,7 +16,7 @@ export default function AllInsightSentimen() {
     const { isLoading } = useLoadingStore();
 
     useEffect(() => {
-        console.log(`Hasil sentimen: ${sentimenResults}`);
+        // console.log(`Hasil sentimen: ${sentimenResults}`);
         // if (!Array.isArray(sentimenResults) || sentimenResults.length === 0) {
         //     isLoading = false;
         // }
@@ -37,10 +37,10 @@ export default function AllInsightSentimen() {
         </>
     } else if (sentimenResults) {
         return <>
-            <h1 className="text-2xl">Hasil Sentimen </h1>
+            {/* <h1 className="text-2xl">Hasil Sentimen </h1>
             {sentimenResults.map(item => (
                 <h1 key={item.text}>{item.text}</h1>
-            ))}
+            ))} */}
             <div className="my-9 grid grid-cols-1 md:grid-cols-5 col-span-1 gap-6">
                 <Sentimen />
             </div>
