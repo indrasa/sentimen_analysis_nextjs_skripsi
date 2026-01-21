@@ -6,11 +6,14 @@ import { Card } from "./ui/card";
 import { useSentimenStore } from "@/store/useSentimenStore";
 import { useEffect } from "react";
 import { Spinner } from "./ui/spinner";
+import { useLoadingStore } from "@/store/useLoadingStore";
 
 export default function AllInsightSentimen() {
 
     const { sentimenResults } = useSentimenStore();
     // var isLoading: boolean = true;
+
+    const { isLoading } = useLoadingStore();
 
     useEffect(() => {
         console.log(`Hasil sentimen: ${sentimenResults}`);
@@ -19,16 +22,16 @@ export default function AllInsightSentimen() {
         // }
     }, [sentimenResults]);
 
-    // if (isLoading) {
-    //     return <>
-    //         <div className="flex flex-col self-center justify-center items-center p-6">
-    //             <Spinner />
-    //         </div>
-    //     </>
-    // }
+    if (isLoading) {
+        return <>
+            <div className="flex flex-col self-center justify-center items-center p-6">
+                <Spinner />
+            </div>
+        </>
+    }
 
     // if (!sentimenResults || sentimenResults == null || sentimenResults == '') {
-    if (!Array.isArray(sentimenResults) || sentimenResults.length === 0) {
+    if (!Array.isArray(sentimenResults) || sentimenResults.length === 0 ) {
         return
         <>
         </>

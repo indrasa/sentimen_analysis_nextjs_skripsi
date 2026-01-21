@@ -8,9 +8,12 @@ import { AnalisaAction } from "../app/actions/analisaAction"
 import { useSentimenStore } from '../store/useSentimenStore';
 import { useState } from "react"
 import { Spinner } from "./ui/spinner"
+import { useLoadingStore } from "@/store/useLoadingStore"
 
 export default function InputURLYoutube() {
-    const [ isLoading, setLoading ] = useState(false);
+    // const [ isLoading, setLoading ] = useState(false);
+    const { isLoading, setLoading } = useLoadingStore();
+
     const setUrl = useYoutubeStore((s) => s.setUrl)
     const isValid = useYoutubeStore((s) => s.isValid)
     const url = useYoutubeStore((s) => s.url)
@@ -28,7 +31,6 @@ export default function InputURLYoutube() {
                 // next analisa dengan AnalisaAction, kirim list komentar ke actions
                 const analisaKomentar = await AnalisaAction(listKomentar)
                 // console.log(analisaKomentar);
-
 
                 // console.log(`analisa komentar: ${analisaKomentar[0].label}`);
                 //gabung hasil analisa dan komentar jadi satu
