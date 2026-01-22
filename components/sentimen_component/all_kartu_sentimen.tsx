@@ -6,12 +6,29 @@ import { useEffect } from "react";
 
 
 export default function Sentimen() {
-    const { sentimenResults, getTotalCountByLabel } = useSentimenStore();
+    const { sentimenResults, getTotalCountByLabel, getSentimenByLabel } = useSentimenStore();
 
     useEffect(() => {
         // console.log(`ini dari halaman sentimen: ${sentimenResults}`);
         // console.log(sentimenResults);
+        // console.log('Very Positive Comments:', sentimenVeryPositive);
+        // console.log('Positive Comments:', sentimenPositive);
+        // console.log('Neutral Comments:', sentimenNeutral);
+        // console.log('Negative Comments:', sentimenNegative);
+        // console.log('Very Negative Comments:', sentimenVeryNegative);
     }, [sentimenResults]);
+
+    const sentimenVeryPositive = getSentimenByLabel('Very Positive');
+    const sentimenPositive = getSentimenByLabel('Positive');
+    const sentimenNeutral = getSentimenByLabel('Neutral');
+    const sentimenNegative = getSentimenByLabel('Negative');
+    const sentimenVeryNegative = getSentimenByLabel('Very Negative');
+
+    // console.log('Very Positive Comments:', sentimenVeryPositive);
+    // console.log('Positive Comments:', sentimenPositive);
+    // console.log('Neutral Comments:', sentimenNeutral);
+    // console.log('Negative Comments:', sentimenNegative);
+    // console.log('Very Negative Comments:', sentimenVeryNegative);
 
     return <>
         <KartuSentimen label="Very Positive" jumlah={getTotalCountByLabel('Very Positive')} komentar={['halo', 'dua']} />

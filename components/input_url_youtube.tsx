@@ -8,11 +8,11 @@ import { AnalisaAction } from "../app/actions/analisaAction"
 import { useSentimenStore } from '../store/useSentimenStore';
 import { useState } from "react"
 import { Spinner } from "./ui/spinner"
-import { useLoadingStore } from "@/store/useLoadingStore"
+import { StatusLoading, useLoadingStore } from "@/store/useLoadingStore"
 
 export default function InputURLYoutube() {
     // const [ isLoading, setLoading ] = useState(false);
-    const { isLoading, setLoading } = useLoadingStore();
+    const { isLoading, setLoading, setStatus } = useLoadingStore();
 
     const setUrl = useYoutubeStore((s) => s.setUrl)
     const isValid = useYoutubeStore((s) => s.isValid)
@@ -25,10 +25,12 @@ export default function InputURLYoutube() {
         if (isValid) {
             try {
                 setLoading(true);
+                setStatus(StatusLoading.STATUS_KERJAKAN_KOMENTAR);
                 //jadi minta ke serverAction > proses dari lib(scrapper), dan harus ditampung, kalau nggak nggak bisa
                 const listKomentar = await KomentarAction(url);
                 // console.log(listKomentar);
                 // next analisa dengan AnalisaAction, kirim list komentar ke actions
+                setStatus(StatusLoading.STATUS_ANALISA_KOMENTAR);
                 const analisaKomentar = await AnalisaAction(listKomentar)
                 // console.log(analisaKomentar);
 
@@ -57,6 +59,7 @@ export default function InputURLYoutube() {
                 // error di sini
             } finally {
                 setLoading(false);
+                setStatus(StatusLoading.IDLE);
             }
         } else if (!isValid) {
             // alert(`LINK TIDAK VALID: ${url}`);

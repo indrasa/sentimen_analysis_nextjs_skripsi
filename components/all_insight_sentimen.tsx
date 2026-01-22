@@ -6,14 +6,14 @@ import { Card } from "./ui/card";
 import { useSentimenStore } from "@/store/useSentimenStore";
 import { useEffect } from "react";
 import { Spinner } from "./ui/spinner";
-import { useLoadingStore } from "@/store/useLoadingStore";
+import { StatusLoading, useLoadingStore } from "@/store/useLoadingStore";
 
 export default function AllInsightSentimen() {
 
     const { sentimenResults } = useSentimenStore();
     // var isLoading: boolean = true;
 
-    const { isLoading } = useLoadingStore();
+    const { isLoading, status } = useLoadingStore();
 
     useEffect(() => {
         // console.log(`Hasil sentimen: ${sentimenResults}`);
@@ -26,6 +26,7 @@ export default function AllInsightSentimen() {
         return <>
             <div className="flex flex-col self-center justify-center items-center p-6">
                 <Spinner />
+                <h1 className="text-lg mt-3">{status === StatusLoading.STATUS_KERJAKAN_KOMENTAR ? 'Mengambil komentar...' : status === StatusLoading.STATUS_ANALISA_KOMENTAR ? 'Menganalisa komentar...' : 'Memproses data sentimen...'}</h1>
             </div>
         </>
     }
