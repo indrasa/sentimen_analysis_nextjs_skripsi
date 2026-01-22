@@ -1,6 +1,6 @@
 'use client'
 
-import Sentimen from "@/components/sentimen_component/all_kartu_sentimen";
+import AllKartuSentimen from "@/components/sentimen_component/all_kartu_sentimen";
 import ChartSentimen from "./sentimen_component/chart_sentimen";
 import { Card } from "./ui/card";
 import { useSentimenStore } from "@/store/useSentimenStore";
@@ -42,8 +42,8 @@ export default function AllInsightSentimen() {
             {sentimenResults.map(item => (
                 <h1 key={item.text}>{item.text}</h1>
             ))} */}
-            <div className="my-9 grid grid-cols-1 md:grid-cols-5 col-span-1 gap-6">
-                <Sentimen />
+            <div className="my-9 grid grid-cols-2 md:grid-cols-5 col-span-1 gap-6">
+                <AllKartuSentimen />
             </div>
 
             <div className="flex flex-col gap-5 justify-center">

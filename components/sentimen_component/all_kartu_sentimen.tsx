@@ -5,7 +5,7 @@ import { useSentimenStore } from "@/store/useSentimenStore";
 import { useEffect } from "react";
 
 
-export default function Sentimen() {
+export default function AllKartuSentimen() {
     const { sentimenResults, getTotalCountByLabel, getSentimenByLabel } = useSentimenStore();
 
     useEffect(() => {
@@ -31,10 +31,10 @@ export default function Sentimen() {
     // console.log('Very Negative Comments:', sentimenVeryNegative);
 
     return <>
-        <KartuSentimen label="Very Positive" jumlah={getTotalCountByLabel('Very Positive')} komentar={['halo', 'dua']} />
-        <KartuSentimen label="Positive" jumlah={getTotalCountByLabel('Positive')} komentar={['halo', 'dua']} />
-        <KartuSentimen label="Neutral" jumlah={getTotalCountByLabel('Neutral')} komentar={['halo', 'dua']} />
-        <KartuSentimen label="Negative" jumlah={getTotalCountByLabel('Negative')} komentar={['halo', 'dua']} />
-        <KartuSentimen label="Very Negative" jumlah={getTotalCountByLabel('Very Negative')} komentar={['halo', 'dua']} />
+        <KartuSentimen label="Very Positive" jumlah={getTotalCountByLabel('Very Positive')} komentar={sentimenVeryPositive} />
+        <KartuSentimen label="Positive" jumlah={getTotalCountByLabel('Positive')} komentar={sentimenPositive} />
+        <KartuSentimen label="Neutral" jumlah={getTotalCountByLabel('Neutral')} komentar={sentimenNeutral} />
+        <KartuSentimen label="Negative" jumlah={getTotalCountByLabel('Negative')} komentar={sentimenNegative} />
+        <KartuSentimen label="Very Negative" jumlah={getTotalCountByLabel('Very Negative')} komentar={sentimenVeryNegative} />
     </>
 }
