@@ -42,7 +42,7 @@ export default function AllInsightSentimen() {
             {sentimenResults.map(item => (
                 <h1 key={item.text}>{item.text}</h1>
             ))} */}
-            <div className="my-9 grid grid-cols-1 md:grid-cols-5 col-span-1 gap-6">
+            <div className="my-9 grid grid-cols-1 md:grid-cols-2 [@media(min-width:1024px)]:grid-cols-[repeat(auto-fit,minmax(180px,1fr))] auto-rows-fr gap-6 w-full">
                 <AllKartuSentimen />
             </div>
 {// next todo: perbaiki tampilan chart dan insight agar fit kiri kanan
@@ -62,11 +62,11 @@ export default function AllInsightSentimen() {
                 // ...existing code...
 
 }
-            <div className="flex flex-col md:flex-row mx-auto gap-5 justify-center">
-                <div className="self-center">
+            <div className="flex flex-col md:flex-row mx-auto gap-5 justify-center w-full">
+                <div className="self-center md:self-stretch flex-1">
                     <ChartSentimen />
                 </div>
-                <div className='flex flex-col gap-3'>
+                <div className='flex flex-col gap-3 flex-1'>
                     <h1 className="text-3xl font-bold text-center">Insight Cepat</h1>
                     <Card className='px-5 py-5'>insight 1</Card>
                     <Card className='px-5 py-5'>insight 1</Card>
