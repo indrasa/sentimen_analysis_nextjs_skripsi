@@ -4,69 +4,65 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useYoutubeStore } from '@/store/useYoutubeStore'
 import { KomentarAction } from "../app/actions/komentarAction"
-import { AnalisaAction } from "../app/actions/analisaAction"
 import { useSentimenStore } from '../store/useSentimenStore';
 import { Spinner } from "./ui/spinner"
-import { StatusLoading, useLoadingStore } from "@/store/useLoadingStore"
+import { useAnalysisStore } from "@/store/useAnalysisStore"
+import type { Comment } from "@/lib/types/analysis"
 
 export default function InputURLYoutube() {
-    // const [ isLoading, setLoading ] = useState(false);
-    const { isLoading, setLoading, setStatus } = useLoadingStore();
+    // Use analysis store instead of loading store
+    const { status: analysisStatus, startAnalysis, reset } = useAnalysisStore()
 
     const setUrl = useYoutubeStore((s) => s.setUrl)
     const isValid = useYoutubeStore((s) => s.isValid)
     const url = useYoutubeStore((s) => s.url)
 
-    const { setSentimenResults } = useSentimenStore();
+    const { addSentimenResult, clearSentimenResults } = useSentimenStore();
+
+    // Check if currently loading (either fetching comments or analyzing)
+    const isLoading = analysisStatus === 'running'
 
     const handleUrl = async (url: string) => {
-        // jika link valid, maka proses scraping dan analisa komentar, buat 2 action, pengumpul komentar dan analisa hugging face
+        // jika link valid, maka proses scraping dan analisa komentar
         if (isValid) {
             try {
-                setLoading(true);
-                setStatus(StatusLoading.STATUS_KERJAKAN_KOMENTAR);
-                //jadi minta ke serverAction > proses dari lib(scrapper), dan harus ditampung, kalau nggak nggak bisa
+                // Reset previous results
+                reset()
+                clearSentimenResults()
+
+                // Step 1: Fetch comments (server action)
                 const listKomentar = await KomentarAction(url);
-                // console.log(listKomentar);
-                // next analisa dengan AnalisaAction, kirim list komentar ke actions
-                setStatus(StatusLoading.STATUS_ANALISA_KOMENTAR);
-                const analisaKomentar = await AnalisaAction(listKomentar)
-                // console.log(analisaKomentar);
 
-                // console.log(`analisa komentar: ${analisaKomentar[0].label}`);
-                //gabung hasil analisa dan komentar jadi satu
-                const gabungKomentarDanAnalisa = listKomentar.map((komentar, index) => ({
-                    ...komentar,
-                    sentimen: analisaKomentar[index]
-                }));
-                // console.log(gabungKomentarDanAnalisa);
+                // Convert to Comment[] type
+                const comments: Comment[] = listKomentar.map((k: { text?: string }) => ({
+                    text: k.text || ''
+                }))
 
-                // buat variabel baru menampung 3 saja, komentar, label sentimen, dan skor sentimen
-                const filteredKomentar = gabungKomentarDanAnalisa.map((item) => ({
-                    text: item.text,
-                    label: item.sentimen.label,
-                    score: item.sentimen.score,
-                    // kalau mau nambah photo dan authornya bisa di sini, kayaknya kita pakai ini aja
-                }));
-                // console.log(filteredKomentar);
-                setSentimenResults(filteredKomentar)
-                //todo: next lanjut di sini
-                //kemudian masukkan ke store untuk di filter per kategori dan dibuatkan chart
-                // console.log(filteredKomentar);
-                
+                // Step 2: Start analysis with async generator
+                // This will update progress in real-time
+                await startAnalysis(comments, (result) => {
+                    // Callback dipanggil setiap komentar selesai dianalisis
+                    addSentimenResult(result)
+                })
+
             } catch (e) {
-                // error di sini
-            } finally {
-                setLoading(false);
-                setStatus(StatusLoading.IDLE);
+                console.error('Error:', e)
             }
-        } else if (!isValid) {
-            // alert(`LINK TIDAK VALID: ${url}`);
         }
     }
 
     return <>
-        <Input onChange={(e) => setUrl(e.target.value)} />
-        <Button onClick={() => handleUrl(url)} variant="default">{isLoading ? <Spinner/> : 'Analisis Komentar'}</Button>
+        <Input
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="Masukkan URL video YouTube..."
+            disabled={isLoading}
+        />
+        <Button
+            onClick={() => handleUrl(url)}
+            variant="default"
+            disabled={isLoading || !isValid}
+        >
+            {isLoading ? <Spinner /> : 'Analisis Komentar'}
+        </Button>
     </>
 }
