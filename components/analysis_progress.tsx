@@ -24,12 +24,12 @@ export function AnalysisProgress() {
     // Error state
     if (status === 'error') {
         return (
-            <div className="w-full p-4 rounded-lg bg-red-500/10 border border-red-500/20">
-                <p className="text-red-400 text-sm font-medium">
+            <div className="w-full p-6 rounded-2xl bg-destructive/10 border border-destructive/30 backdrop-blur-sm">
+                <p className="text-destructive text-base font-semibold">
                     Terjadi kesalahan saat menganalisis komentar
                 </p>
                 {error && (
-                    <p className="text-red-300/70 text-xs mt-1">{error}</p>
+                    <p className="text-destructive/80 text-sm mt-2">{error}</p>
                 )}
             </div>
         )
@@ -38,30 +38,34 @@ export function AnalysisProgress() {
     // Completed state
     if (status === 'completed') {
         return (
-            <div className="w-full p-4 rounded-lg bg-green-500/10 border border-green-500/20">
-                <div className="flex items-center gap-2">
-                    <svg
-                        className="w-5 h-5 text-green-400"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 13l4 4L19 7"
-                        />
-                    </svg>
-                    <p className="text-green-400 font-medium">
-                        Analisis selesai!
-                    </p>
+            <div className="w-full p-6 rounded-2xl bg-primary/10 border border-primary/30 backdrop-blur-sm">
+                <div className="flex items-center gap-3">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                        <svg
+                            className="w-6 h-6 text-primary"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2.5}
+                                d="M5 13l4 4L19 7"
+                            />
+                        </svg>
+                    </div>
+                    <div>
+                        <p className="text-primary font-semibold text-base">
+                            Analisis selesai!
+                        </p>
+                        {progress && (
+                            <p className="text-muted-foreground text-sm mt-0.5">
+                                {progress.total} komentar berhasil dianalisis
+                            </p>
+                        )}
+                    </div>
                 </div>
-                {progress && (
-                    <p className="text-green-300/70 text-sm mt-1">
-                        {progress.total} komentar berhasil dianalisis
-                    </p>
-                )}
             </div>
         )
     }
@@ -69,8 +73,8 @@ export function AnalysisProgress() {
     // Running state - show progress
     if (!progress) {
         return (
-            <div className="w-full p-4 rounded-lg bg-slate-800/50 border border-slate-700/50">
-                <p className="text-slate-300 text-sm">
+            <div className="w-full p-6 rounded-2xl bg-card border border-border backdrop-blur-sm">
+                <p className="text-foreground text-base">
                     Memulai analisis...
                 </p>
             </div>
@@ -80,29 +84,29 @@ export function AnalysisProgress() {
     const percent = (progress.current / progress.total) * 100
 
     return (
-        <div className="w-full p-4 rounded-lg bg-slate-800/50 border border-slate-700/50 space-y-3">
+        <div className="w-full p-6 rounded-2xl bg-card border border-border backdrop-blur-sm space-y-4">
             {/* Progress text */}
             <div className="flex items-center justify-between">
-                <p className="text-slate-200 font-medium">
+                <p className="text-foreground font-medium text-base">
                     Menganalisa komentar{' '}
-                    <span className="text-blue-400">{progress.current}</span>
+                    <span className="text-primary font-semibold">{progress.current}</span>
                     {' '}dari{' '}
-                    <span className="text-blue-400">{progress.total}</span>
+                    <span className="text-primary font-semibold">{progress.total}</span>
                 </p>
-                <span className="text-slate-400 text-sm">
+                <span className="text-muted-foreground text-sm font-semibold">
                     {percent.toFixed(0)}%
                 </span>
             </div>
 
             {/* Progress bar */}
-            <Progress value={percent} className="h-2" />
+            <Progress value={percent} className="h-2.5" />
 
             {/* Current comment text */}
-            <div className="bg-slate-900/50 rounded-md p-3 border border-slate-700/30">
-                <p className="text-slate-400 text-xs uppercase tracking-wide mb-1">
+            <div className="bg-muted/50 rounded-xl p-4 border border-border/50">
+                <p className="text-muted-foreground text-xs font-semibold uppercase tracking-wider mb-2">
                     Komentar saat ini:
                 </p>
-                <p className="text-slate-300 text-sm italic line-clamp-2">
+                <p className="text-foreground text-sm leading-relaxed line-clamp-2">
                     &ldquo;{progress.commentText}&rdquo;
                 </p>
             </div>

@@ -51,18 +51,33 @@ export default function InputURLYoutube() {
         }
     }
 
-    return <>
-        <Input
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="Masukkan URL video YouTube..."
-            disabled={isLoading}
-        />
-        <Button
-            onClick={() => handleUrl(url)}
-            variant="default"
-            disabled={isLoading || !isValid}
-        >
-            {isLoading ? <Spinner /> : 'Analisis Komentar'}
-        </Button>
-    </>
+    return (
+        <div className="w-full max-w-3xl mx-auto">
+            <div className="bg-card border border-border rounded-2xl shadow-lg p-6 sm:p-8 backdrop-blur-sm">
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex-1">
+                        <Input
+                            onChange={(e) => setUrl(e.target.value)}
+                            placeholder="Masukkan URL video YouTube..."
+                            disabled={isLoading}
+                            className="h-12 text-base"
+                        />
+                    </div>
+                    <Button
+                        onClick={() => handleUrl(url)}
+                        variant="default"
+                        disabled={isLoading || !isValid}
+                        className="h-12 px-8 text-base font-semibold whitespace-nowrap"
+                    >
+                        {isLoading ? <Spinner /> : 'Analisis Komentar'}
+                    </Button>
+                </div>
+                {!isValid && url && (
+                    <p className="text-sm text-destructive mt-3 ml-1">
+                        URL YouTube tidak valid
+                    </p>
+                )}
+            </div>
+        </div>
+    )
 }

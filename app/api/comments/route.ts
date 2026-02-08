@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const list_komentar = await komentar_scrapper(youtubeUrl);
+    const list_komentar = await komentar_scrapper(youtubeUrl); // lihat ini di folder lib, adapun analisa langsung semua di API karena perlu pakai yield tiap analisanya, biar simple
 
     return NextResponse.json({
       message: 'Komentar berhasil diambil',

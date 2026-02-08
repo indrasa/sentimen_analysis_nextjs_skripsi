@@ -10,7 +10,7 @@ export default function AllInsightSentimen() {
     const { sentimenResults } = useSentimenStore();
     const { status } = useAnalysisStore();
 
-    // Show progress component when running
+    // tampilakn progress saat analisa berjalan
     if (status === 'running') {
         return (
             <div className="w-full mt-8">
@@ -19,9 +19,9 @@ export default function AllInsightSentimen() {
         );
     }
 
-    // Show completed message briefly or nothing when idle with no results
+    // Tampilkan pesan selesai sebentar atau tidak sama sekali saat idle tanpa hasil
     if (!Array.isArray(sentimenResults) || sentimenResults.length === 0) {
-        // Show completed state if analysis just finished
+        // Tampilkan status selesai jika analisis baru saja selesai
         if (status === 'completed') {
             return (
                 <div className="w-full mt-8">
@@ -32,19 +32,33 @@ export default function AllInsightSentimen() {
         return null;
     }
 
-    // Show results
+    // Tampilkan hasil analisa sentimen
     return (
-        <div className="w-full mt-8">
-            {/* Show completed message if just finished */}
-            {status === 'completed' && <AnalysisProgress />}
-
-            <h1 className="text-3xl font-bold text-center mt-6">Hasil Analisa Sentimen</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6 mb-6">
-                <div className="md:w-1/3">
-                    <ChartSentimen />
+        <div className="w-full space-y-8">
+            {/* Tampilkan pesan selesai jika baru saja selesai */}
+            {status === 'completed' && (
+                <div className="mb-6">
+                    <AnalysisProgress />
                 </div>
-                <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-2 [@media(min-width:1024px)]:grid-cols-[repeat(auto-fit,minmax(180px,1fr))] auto-rows-fr gap-6">
-                    <AllKartuSentimen />
+            )}
+
+            <div className="space-y-6">
+                <h2 className="text-3xl sm:text-4xl font-bold text-center bg-linear-to-r from-foreground to-primary bg-clip-text text-transparent">
+                    Hasil Analisa Sentimen
+                </h2>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    {/* Bagian Grafik */}
+                    <div className="lg:col-span-3">
+                        <div className="bg-card border border-border rounded-2xl p-6 shadow-lg h-full">
+                            <ChartSentimen />
+                        </div>
+                    </div>
+
+                    {/* Bagian Kartu */}
+                    <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <AllKartuSentimen />
+                    </div>
                 </div>
             </div>
         </div>
