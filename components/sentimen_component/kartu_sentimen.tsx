@@ -14,18 +14,18 @@ type KartuSentimenProps = {
 // Color mapping for different sentiment types
 const getSentimentColors = (label: string) => {
     switch (label) {
-        case 'Very Positive':
-            return 'border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 hover:border-emerald-500/50';
-        case 'Positive':
-            return 'border-teal-500/30 bg-teal-50/50 dark:bg-teal-950/20 hover:border-teal-500/50';
-        case 'Neutral':
-            return 'border-slate-500/30 bg-slate-50/50 dark:bg-slate-950/20 hover:border-slate-500/50';
-        case 'Negative':
-            return 'border-orange-500/30 bg-orange-50/50 dark:bg-orange-950/20 hover:border-orange-500/50';
-        case 'Very Negative':
-            return 'border-red-500/30 bg-red-50/50 dark:bg-red-950/20 hover:border-red-500/50';
-        default:
-            return 'border-border bg-card hover:border-primary/50';
+            case 'Very Positive':
+                return 'border-primary bg-primary/10 dark:bg-primary/20 hover:border-primary/80';
+            case 'Positive':
+                return 'border-blue-400 bg-blue-50 dark:bg-blue-900/20 hover:border-blue-500';
+            case 'Neutral':
+                return 'border-zinc-400 bg-zinc-50 dark:bg-zinc-900/20 hover:border-zinc-500';
+            case 'Negative':
+                return 'border-yellow-500 bg-yellow-50 dark:bg-yellow-900/20 hover:border-yellow-600';
+            case 'Very Negative':
+                return 'border-destructive bg-destructive/10 dark:bg-destructive/20 hover:border-destructive/80';
+            default:
+                return 'border-border bg-background hover:border-primary/50';
     }
 };
 

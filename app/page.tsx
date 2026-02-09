@@ -9,7 +9,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12 space-y-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-8xl font-bold tracking-tight bg-linear-to-r from-foreground via-foreground to-primary bg-clip-text text-transparent">
+            <h1 className="text-4xl sm:text-5xl lg:text-8xl font-bold tracking-tight bg-gradient-to-r from-[#0C2C55] via-[#296374] to-[#629FAD] bg-clip-text text-transparent">
               Analisis Sentimen Komentar YouTube
             </h1>
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
