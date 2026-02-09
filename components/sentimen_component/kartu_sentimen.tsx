@@ -41,11 +41,11 @@ export default function KartuSentimen({ label, jumlah, komentar }: KartuSentimen
             <CardContent className="text-5xl font-bold text-center text-foreground my-4">
                 {jumlah}
             </CardContent>
-            <div className="mt-auto flex flex-col items-center space-y-3 px-0">
+            {/* <div className="mt-auto flex flex-col items-center space-y-3 px-0">
                 <CardAction className="w-full flex justify-center">
                     <DialogIsiKomentar list_komentar={list_komentar} label={label} />
                 </CardAction>
-            </div>
+            </div> */}
         </Card>
     </>
 }

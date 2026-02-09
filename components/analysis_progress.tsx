@@ -24,7 +24,7 @@ export function AnalysisProgress() {
     // Error state
     if (status === 'error') {
         return (
-            <div className="w-full p-6 rounded-2xl bg-destructive/10 border border-destructive/30 backdrop-blur-sm">
+            <div className="w-full p-6 rounded-2xl bg-destructive/10 border-2 border-destructive backdrop-blur-lg">
                 <p className="text-destructive text-base font-semibold">
                     Terjadi kesalahan saat menganalisis komentar
                 </p>
@@ -35,10 +35,10 @@ export function AnalysisProgress() {
         )
     }
 
-    // Completed state
+    // Status Selesai
     if (status === 'completed') {
         return (
-            <div className="w-full p-6 rounded-2xl bg-primary/10 border border-primary/30 backdrop-blur-sm">
+            <div className="w-full p-6 rounded-2xl border-2 border-primary backdrop-blur-lg">
                 <div className="flex items-center gap-3">
                     <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
                         <svg
@@ -56,11 +56,11 @@ export function AnalysisProgress() {
                         </svg>
                     </div>
                     <div>
-                        <p className="text-primary font-semibold text-base">
+                        <p className="text-primary font-semibold text-xl">
                             Analisis selesai!
                         </p>
                         {progress && (
-                            <p className="text-muted-foreground text-sm mt-0.5">
+                            <p className="text-muted-foreground text-lg mt-0.5 font-bold">
                                 {progress.total} komentar berhasil dianalisis
                             </p>
                         )}
@@ -73,7 +73,7 @@ export function AnalysisProgress() {
     // Running state - show progress
     if (!progress) {
         return (
-            <div className="w-full p-6 rounded-2xl bg-card border border-border backdrop-blur-sm">
+            <div className="w-full p-6 rounded-2xl bg-card border-2 border-border backdrop-blur-lg">
                 <p className="text-foreground text-base">
                     Memulai analisis...
                 </p>
@@ -84,7 +84,7 @@ export function AnalysisProgress() {
     const percent = (progress.current / progress.total) * 100
 
     return (
-        <div className="w-full p-6 rounded-2xl bg-card border border-border backdrop-blur-sm space-y-4">
+        <div className="w-full p-6 rounded-2xl bg-card border-2 border-border backdrop-blur-lg space-y-4">
             {/* Progress text */}
             <div className="flex items-center justify-between">
                 <p className="text-foreground font-medium text-base">
@@ -101,7 +101,7 @@ export function AnalysisProgress() {
             {/* Progress bar */}
             <Progress value={percent} className="h-2.5" />
 
-            {/* Current comment text */}
+            {/* teks komentar saat ini */}
             <div className="bg-muted/50 rounded-xl p-4 border border-border/50">
                 <p className="text-muted-foreground text-xs font-semibold uppercase tracking-wider mb-2">
                     Komentar saat ini:

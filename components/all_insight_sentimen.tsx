@@ -5,10 +5,12 @@ import ChartSentimen from './sentimen_component/chart_sentimen';
 import { useSentimenStore } from "@/store/useSentimenStore";
 import { useAnalysisStore } from "@/store/useAnalysisStore";
 import { AnalysisProgress } from "./analysis_progress";
+import ListKomentar from "./list_komentar";
 
 export default function AllInsightSentimen() {
     const { sentimenResults } = useSentimenStore();
     const { status } = useAnalysisStore();
+    
 
     // tampilakn progress saat analisa berjalan
     if (status === 'running') {
@@ -59,6 +61,11 @@ export default function AllInsightSentimen() {
                     <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <AllKartuSentimen />
                     </div>
+
+                    {/* bagian kumpulan komentar */}
+                </div>
+                <div className="grid grid-cols-1 gap-2">
+                    <ListKomentar/>
                 </div>
             </div>
         </div>
