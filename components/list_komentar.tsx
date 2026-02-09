@@ -34,7 +34,7 @@ export default function ListKomentar() {
 
                 }
 
-                return <Card className="p-8" key={item}>
+                return <Card className="p-8" key={item.text}>
                     <div className="flex gap-6">
 
                         <div className="flex flex-col items-center justify-center gap-2">
