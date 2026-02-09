@@ -38,7 +38,7 @@ export default function KartuSentimen({ label, jumlah, komentar }: KartuSentimen
             <CardHeader className="text-lg font-semibold px-0 text-center text-foreground/80">
                 {label}
             </CardHeader>
-            <CardContent className="text-5xl font-bold text-center text-foreground my-4">
+            <CardContent className="text-6xl font-bold text-center text-foreground my-4">
                 {jumlah}
             </CardContent>
             {/* <div className="mt-auto flex flex-col items-center space-y-3 px-0">

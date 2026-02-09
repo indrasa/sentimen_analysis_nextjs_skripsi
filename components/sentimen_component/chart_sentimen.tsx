@@ -10,7 +10,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function ChartSentimen() {
 
-    const { getTotalCountByLabel  } = useSentimenStore();
+    const { getTotalCountByLabel } = useSentimenStore();
     const jumlahVeryPositive = getTotalCountByLabel('Very Positive');
     const jumlahPositive = getTotalCountByLabel('Positive');
     const jumlahNeutral = getTotalCountByLabel('Neutral');
@@ -55,8 +55,8 @@ export default function ChartSentimen() {
     }
 
     return <>
-    
-    <Pie data={data} options={options}></Pie>
+
+        <Pie data={data} options={options}></Pie>
 
     </>
 

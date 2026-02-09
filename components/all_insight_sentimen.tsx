@@ -52,13 +52,14 @@ export default function AllInsightSentimen() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Bagian Grafik */}
                     <div className="lg:col-span-3">
-                        <div className="bg-card border border-border rounded-2xl p-6 shadow-lg h-full">
+                        <div className="bg-card border border-border rounded-2xl p-6 shadow-lg lg:h-full lg:w-1/2 self-center md:mx-auto">
+                            
                             <ChartSentimen />
                         </div>
                     </div>
 
                     {/* Bagian Kartu */}
-                    <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <AllKartuSentimen />
                     </div>
 
