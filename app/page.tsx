@@ -1,3 +1,4 @@
+import Image from "next/image";
 import InputURLYoutube from "../components/input_url_youtube";
 import AllInsightSentimen from '@/components/all_insight_sentimen';
 
@@ -9,7 +10,11 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12 space-y-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-8xl font-bold tracking-tight bg-gradient-to-r from-[#0C2C55] via-[#296374] to-[#629FAD] bg-clip-text text-transparent">
+            <div className="flex justify-center" >
+            <Image src="/icon_analisa.svg" alt="icon analisa" width={125} height={125}/>
+
+            </div>
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight bg-gradient-to-r from-[#0C2C55] via-[#296374] to-[#629FAD] bg-clip-text text-transparent">
               Analisis Sentimen Komentar YouTube
             </h1>
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
