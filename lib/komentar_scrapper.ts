@@ -44,7 +44,7 @@ export async function komentar_scrapper(link: string): Promise<Comment[]> {
             semuaKomens.push(komentar);
         }
     }
-    // console.log(semuaKomens);se
+    
     return semuaKomens;
 }
 

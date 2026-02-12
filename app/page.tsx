@@ -5,7 +5,6 @@ import AllInsightSentimen from '@/components/all_insight_sentimen';
 export default function Home() {
   return (
     <div className="min-h-screen bg-linear-to-b from-background via-background to-muted/30">
-      {/* Hero Section */}
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
@@ -22,15 +21,14 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Input Section */}
+          {/* Bagian Input */}
           <div className="mb-16">
             <InputURLYoutube />
           </div>
 
-          {/* Results Section */}
+          {/* Bagian Hasil */}
           <AllInsightSentimen />
         </div>
       </main>
     </div>
-  );
-}
+  );}
